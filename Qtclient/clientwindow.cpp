@@ -92,6 +92,7 @@ void ClientWindow::readServerMessage()
 void ClientWindow::updateDisplay(){
     // 타이머 시간을 1초 증가시킴
     timeValue = timeValue.addSecs(1);
+    computing_resources[4] = QTimeToDouble(timeValue);
     QString timeText = timeValue.toString("HH:mm:ss");
 
     getCPUUsage();
@@ -102,6 +103,7 @@ void ClientWindow::updateDisplay(){
     ui->gpu0_usage->setText(QString::number(computing_resources[1], 'f', 1));
     ui->memory_usage_per->setText(QString::number(computing_resources[5], 'f', 1));
     progressBarSetting();
+    sendComputingResource();
 
 }
 
@@ -210,20 +212,24 @@ void ClientWindow::sendComputingResource(){
 }
 
 void ClientWindow::progressBarSetting(){
-    ui->cpu_progressBar->setRange(0,100);
     ui->cpu_progressBar->setValue(computing_resources[0]);
-
-    ui->gpu0_progressBar->setRange(0,100);
     ui->gpu0_progressBar->setValue(computing_resources[1]);
-
-    ui->gpu1_progressBar->setRange(0,100);
     ui->gpu1_progressBar->setValue(computing_resources[2]);
-
-    ui->gpu2_progressBar->setRange(0,100);
     ui->gpu2_progressBar->setValue(computing_resources[3]);
-
-    ui->memory_progressBar->setRange(0,100);
     ui->memory_progressBar->setValue(computing_resources[5]);
 }
+
+double ClientWindow::QTimeToDouble(const QTime& time) {
+    // 시, 분, 초, 밀리초 추출
+    int hours = time.hour();
+    int minutes = time.minute();
+    int seconds = time.second();
+    int milliseconds = time.msec();
+
+    // 전체 초로 변환 (밀리초는 소수점 이하로 반영)
+    double totalSeconds = hours * 3600.0 + minutes * 60.0 + seconds + milliseconds / 1000.0;
+    return totalSeconds;
+}
+
 
 

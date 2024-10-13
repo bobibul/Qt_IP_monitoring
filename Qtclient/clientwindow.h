@@ -36,6 +36,7 @@ private slots:
     void getMemoryUsage();
     void sendComputingResource();
     void progressBarSetting();
+    double QTimeToDouble(const QTime& time);
 
 
 private:

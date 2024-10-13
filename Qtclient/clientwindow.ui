@@ -458,7 +458,9 @@ color: rgb(255, 255, 255);</string>
 QProgressBar::chunk{
 	border-radius:10px;	
 	
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(6, 160, 191, 255), stop:1 rgba(255, 255, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(210, 0, 238, 255), stop:1 rgba(255, 255, 255, 255));
+	
+	
 		
 }</string>
       </property>
@@ -633,7 +635,9 @@ color: rgb(255, 255, 255)</string>
 QProgressBar::chunk{
 	border-radius:10px;	
 	
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(6, 160, 191, 255), stop:1 rgba(255, 255, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(210, 0, 238, 255), stop:1 rgba(255, 255, 255, 255));
+	
+	
 		
 }</string>
       </property>
@@ -831,7 +835,9 @@ color: rgb(255, 255, 255)</string>
 QProgressBar::chunk{
 	border-radius:10px;	
 	
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(6, 160, 191, 255), stop:1 rgba(255, 255, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(210, 0, 238, 255), stop:1 rgba(255, 255, 255, 255));
+	
+	
 		
 }</string>
       </property>
@@ -1013,7 +1019,7 @@ color: rgb(255, 255, 255)</string>
 QProgressBar::chunk{
 	border-radius:10px;	
 	
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(6, 160, 191, 255), stop:1 rgba(255, 255, 255, 255));
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 208, 149, 255), stop:1 rgba(255, 255, 255, 255));
 		
 }</string>
       </property>
