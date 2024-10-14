@@ -43,6 +43,7 @@ public:
     void control_all(bool on_or_off);
     void update_status();
     void update_window(Device device);
+    void temp_setting();
     QTime doubleToQTime(double seconds);
 
 

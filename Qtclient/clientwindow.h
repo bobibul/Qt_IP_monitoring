@@ -9,6 +9,7 @@
 #include <QDateTime>
 #include <nvml.h>
 #include <QDataStream>
+#include <windows.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,8 +27,8 @@ public:
 
 private slots:
     void connectToServer();
-    void sendOnMessage();
-    void sendOffMessage();
+    void sendOnMessage(); // 메세지 안보냄
+    void sendOffMessage(); // 메세지 안보냄
     void readServerMessage();
     void updateDisplay();
     void gpuSetting();
@@ -36,13 +37,15 @@ private slots:
     void getMemoryUsage();
     void sendComputingResource();
     void progressBarSetting();
+    void startKakaoTalk();
+    void offKakaoTalk();
     double QTimeToDouble(const QTime& time);
 
 
 private:
     Ui::ClientWindow *ui;
     QTcpSocket *tcpSocket;
-    QString serverAddress = "172.20.6.37";
+    QString serverAddress = "127.0.0.1";
     quint16 port = 8080;
 
     QTimer *timer;          // QTimer 객체

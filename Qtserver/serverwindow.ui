@@ -775,7 +775,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(100, 100, 100);
+      <string notr="true">background-color:rgb(50, 50, 50);
 border-style:solid;
 border-radius: 10px;</string>
      </property>
@@ -1150,6 +1150,9 @@ color:rgb(255, 0, 0)</string>
     </widget>
    </widget>
    <widget class="QTextEdit" name="current_state">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -2073,7 +2076,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(100, 100, 100);
+      <string notr="true">background-color:rgb(50, 50, 50);
 border-style:solid;
 border-radius: 10px;</string>
      </property>
@@ -3190,7 +3193,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(100, 100, 100);
+      <string notr="true">background-color:rgb(50, 50, 50);
 border-style:solid;
 border-radius: 10px;</string>
      </property>
@@ -4307,7 +4310,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(100, 100, 100);
+      <string notr="true">background-color:rgb(50, 50, 50);
 border-style:solid;
 border-radius: 10px;</string>
      </property>
@@ -5424,7 +5427,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(100, 100, 100);
+      <string notr="true">background-color:rgb(50, 50, 50);
 border-style:solid;
 border-radius: 10px;</string>
      </property>
@@ -6541,7 +6544,7 @@ color: rgb(255, 255, 255);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:rgb(100, 100, 100);
+      <string notr="true">background-color:rgb(50, 50, 50);
 border-style:solid;
 border-radius: 10px;</string>
      </property>

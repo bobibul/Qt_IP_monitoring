@@ -1,6 +1,5 @@
 #include "clientwindow.h"
 #include "ui_clientwindow.h"
-#include <windows.h>
 #include <iostream>
 
 ClientWindow::ClientWindow(QWidget *parent)
@@ -22,7 +21,7 @@ ClientWindow::ClientWindow(QWidget *parent)
     ui->onButton->setEnabled(true);
     ui->offButton->setEnabled(false);
 
-    connect(tcpSocket, &QTcpSocket::readyRead, this, &ClientWindow::readServerMessage);
+
     gpuSetting();
     progressBarSetting();
 }
@@ -40,7 +39,10 @@ void ClientWindow::connectToServer()
 
     if (tcpSocket->waitForConnected(3000)) {
         ui->current_state->append("서버에 연결되었습니다.");
-    } else {
+        connect(tcpSocket, &QTcpSocket::readyRead, this, &ClientWindow::readServerMessage);
+    }
+
+    else {
         ui->current_state->append("서버에 연결하지 못했습니다: " + tcpSocket->errorString());
     }
 }
@@ -50,12 +52,12 @@ void ClientWindow::sendOnMessage(){
     timer->start();
     ui->onButton->setEnabled(false);
     ui->offButton->setEnabled(true);
-    QString message = "on";
+    startKakaoTalk();
 
-
-    if (tcpSocket->state() == QTcpSocket::ConnectedState) {
-        tcpSocket->write(message.toUtf8()); // 서버로 메시지 전송      
-    }
+    // QString message = "on";
+    // if (tcpSocket->state() == QTcpSocket::ConnectedState) {
+    //     tcpSocket->write(message.toUtf8()); // 서버로 메시지 전송
+    // }
 
     QString currentTime = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
     ui->current_state->append(currentTime + " 장치 켜짐");
@@ -67,15 +69,18 @@ void ClientWindow::sendOffMessage(){
     timer->stop();
     timeValue.setHMS(0, 0, 0);
 
+    offKakaoTalk();
+
     QString timeText = timeValue.toString("HH:mm:ss");
     ui->current_time->setText(timeText);  // 라벨에 시간 업데이트
 
     ui->onButton->setEnabled(true);
     ui->offButton->setEnabled(false);
-    QString message = "off";
-    if (tcpSocket->state() == QTcpSocket::ConnectedState) {
-        tcpSocket->write(message.toUtf8()); // 서버로 메시지 전송
-    }
+
+    // QString message = "off";
+    // if (tcpSocket->state() == QTcpSocket::ConnectedState) {
+    //     tcpSocket->write(message.toUtf8()); // 서버로 메시지 전송
+    // }
 
     QString currentTime = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
     ui->current_state->append(currentTime + " 장치 꺼짐");
@@ -229,6 +234,17 @@ double ClientWindow::QTimeToDouble(const QTime& time) {
     // 전체 초로 변환 (밀리초는 소수점 이하로 반영)
     double totalSeconds = hours * 3600.0 + minutes * 60.0 + seconds + milliseconds / 1000.0;
     return totalSeconds;
+}
+
+void ClientWindow::startKakaoTalk(){
+    QString kakaotalkFilePath = "C:\\Program Files (x86)\\Kakao\\KakaoTalk\\KakaoTalk.exe";
+    QProcess::startDetached(kakaotalkFilePath);
+}
+
+void ClientWindow::offKakaoTalk(){
+    QProcess process;
+    process.start("taskkill", QStringList() << "/F" << "/IM" << "KakaoTalk.exe");
+    process.waitForFinished();
 }
 
 

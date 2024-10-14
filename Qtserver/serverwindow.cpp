@@ -13,13 +13,17 @@ ServerWindow::ServerWindow(QWidget *parent)
         QTcpSocket* clientSocket = clients[0];
         QString message = "on";
         sendMessageToClient(clientSocket, message);
+        ui->current_state->append("device1 장치 on 명령");
     });
 
     connect(ui->offButton, &QPushButton::clicked, this, [this]() {
         QTcpSocket* clientSocket = clients[0];
         QString message = "off";
         sendMessageToClient(clientSocket, message);
+        ui->current_state->append("device1 장치 off 명령");
     });
+
+    temp_setting();
 }
 
 ServerWindow::~ServerWindow()
@@ -50,9 +54,10 @@ void ServerWindow::ClientConnect(){
     QTcpSocket *clientSocket = tcpServer->nextPendingConnection();
     clients.append(clientSocket);
 
-    ui->current_state->append("클라이언트 연결 : " + clientSocket->peerAddress().toString());
+    ui->current_state->append("클라이언트 연결 : " + QHostAddress(clientSocket->peerAddress().toIPv4Address()).toString());
     Device temp_device;
-    devices.insert(clientSocket->peerAddress().toString(), temp_device);
+    devices.insert(QHostAddress(clientSocket->peerAddress().toIPv4Address()).toString(), temp_device);
+    ui->client_ip_address->setText(QHostAddress(clientSocket->peerAddress().toIPv4Address()).toString());
     connect(clientSocket, &QTcpSocket::readyRead, this, &ServerWindow::update_status);
     connect(clientSocket, &QTcpSocket::disconnected, this, &ServerWindow::ClientDisconnected);
 }
@@ -68,26 +73,26 @@ void ServerWindow::ClientDisconnected(){
 }
 
 void ServerWindow::update_status(){
-    for(auto socket : clients){
-        QByteArray data = socket->readAll();  // QByteArray로 수신된 데이터 읽기
-        QVector<char> buffer(data.begin(), data.end());
-        size_t vecSize;
-        std::memcpy(&vecSize, buffer.data(), sizeof(size_t));
-        QVector<double> vec(vecSize);
-        std::memcpy(vec.data(), buffer.data() + sizeof(size_t), vecSize * sizeof(double));
+    ui->current_state->append("setset");
+    // for(auto socket : clients){
+    //     ui->current_state->append("asdfasdf");
+    //     QByteArray data = socket->readAll();  // QByteArray로 수신된 데이터 읽기
+    //     QVector<char> buffer(data.begin(), data.end());
+    //     size_t vecSize;
+    //     std::memcpy(&vecSize, buffer.data(), sizeof(size_t));
+    //     QVector<double> vec(vecSize);
+    //     std::memcpy(vec.data(), buffer.data() + sizeof(size_t), vecSize * sizeof(double));
+    //     Device device = devices[QHostAddress(socket->peerAddress().toIPv4Address()).toString()];
 
-        Device device = devices[socket->peerAddress().toString()];
-
-        device.cpu_usage = vec[0]; // cpu 사용량 저장
-        device.gpu0_usage = vec[1];
-        device.gpu1_usage = vec[2];
-        device.gpu2_usage = vec[3];
-        device.elapsed_time = doubleToQTime(vec[4]);
-        device.memory_usage = vec[5];
-        update_window(device);
-        devices[socket->peerAddress().toString()] = device;
-    }
-
+    //     device.cpu_usage = vec[0]; // cpu 사용량 저장
+    //     device.gpu0_usage = vec[1];
+    //     device.gpu1_usage = vec[2];
+    //     device.gpu2_usage = vec[3];
+    //     device.elapsed_time = doubleToQTime(vec[4]);
+    //     device.memory_usage = vec[5];
+    //     update_window(device);
+    //     devices[socket->peerAddress().toString()] = device;
+    // }
 }
 
 void ServerWindow::update_window(Device device){
@@ -103,6 +108,46 @@ void ServerWindow::update_window(Device device){
     ui->gpu1_progressBar->setValue(device.gpu1_usage);
     ui->gpu2_progressBar->setValue(device.gpu2_usage);
     ui->memory_progressBar->setValue(device.memory_usage);
+}
+
+void ServerWindow::temp_setting(){
+    ui->cpu_progressBar->setValue(0);
+    ui->gpu0_progressBar->setValue(0);
+    ui->gpu1_progressBar->setValue(0);
+    ui->gpu2_progressBar->setValue(0);
+    ui->memory_progressBar->setValue(0);
+
+    ui->cpu_progressBar_2->setValue(0);
+    ui->gpu0_progressBar_2->setValue(0);
+    ui->gpu1_progressBar_2->setValue(0);
+    ui->gpu2_progressBar_2->setValue(0);
+    ui->memory_progressBar_2->setValue(0);
+
+    ui->cpu_progressBar_3->setValue(0);
+    ui->gpu0_progressBar_3->setValue(0);
+    ui->gpu1_progressBar_3->setValue(0);
+    ui->gpu2_progressBar_3->setValue(0);
+    ui->memory_progressBar_3->setValue(0);
+
+    ui->cpu_progressBar_4->setValue(0);
+    ui->gpu0_progressBar_4->setValue(0);
+    ui->gpu1_progressBar_4->setValue(0);
+    ui->gpu2_progressBar_4->setValue(0);
+    ui->memory_progressBar_4->setValue(0);
+
+    ui->cpu_progressBar_5->setValue(0);
+    ui->gpu0_progressBar_5->setValue(0);
+    ui->gpu1_progressBar_5->setValue(0);
+    ui->gpu2_progressBar_5->setValue(0);
+    ui->memory_progressBar_5->setValue(0);
+
+    ui->cpu_progressBar_6->setValue(0);
+    ui->gpu0_progressBar_6->setValue(0);
+    ui->gpu1_progressBar_6->setValue(0);
+    ui->gpu2_progressBar_6->setValue(0);
+    ui->memory_progressBar_6->setValue(0);
+
+
 }
 
 QTime ServerWindow::doubleToQTime(double seconds) {
